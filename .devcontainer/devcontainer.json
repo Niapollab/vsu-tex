@@ -1,0 +1,66 @@
+{
+    // Name
+    "name": "vsu-tex-dev",
+
+    // Mount options
+    "updateRemoteUserUID": true,
+    "workspaceMount": "",
+
+    // Build options
+    "build": {
+        "dockerfile": "Dockerfile",
+        "cacheFrom": "vsu-tex-dev",
+        "options": [
+            "-t",
+            "vsu-tex-dev"
+        ]
+    },
+
+    // Run options
+    "runArgs": [
+        "-v${localWorkspaceFolder}:/workspaces/${localWorkspaceFolderBasename}:Z"
+    ],
+
+    // VSCode options
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "james-yu.latex-workshop",
+                "tecosaur.latex-utilities",
+                "yzhang.markdown-all-in-one",
+                "valentjn.vscode-ltex"
+            ],
+            "settings": {
+                "ltex.java.path": "/usr/lib/jvm/java-11-openjdk",
+                "latex-workshop.latex.recipe.default": "first",
+                "latex-workshop.latex.autoBuild.run": "onSave",
+                "latex-workshop.latex.tools": [
+                    {
+                        "name": "lualatexmk",
+                        "command": "latexmk",
+                        "args": [
+                            "-synctex=1",
+                            "-interaction=nonstopmode",
+                            "-file-line-error",
+                            "-lualatex",
+                            "-outdir=%OUTDIR%",
+                            "%DOC%"
+                        ],
+                        "env": {}
+                    }
+                ],
+                "latex-workshop.latex.recipes": [
+                    {
+                        "name": "latexmk (lualatex)",
+                        "tools": [
+                            "lualatexmk"
+                        ]
+                    }
+                ],
+                "[latex]": {
+                    "editor.wordWrap": "on"
+                }
+            }
+        }
+    }
+}
